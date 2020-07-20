@@ -1,20 +1,37 @@
 import React, {useState, useEffect} from 'react'
 import {Button, FormControl, InputLabel, Input } from '@material-ui/core'
 import Message from './Message'
+import db from './firebase'
+import firebase from 'firebase'
 
 function App(){
     const [input, setInput] = useState('')
-    const [messages, setMessages] = useState([{username: 'zonny',text: "hello"}, {username: 'zonadot',text: "het"} ])
+    const [messages, setMessages] = useState([])
     const [username, setUsername] = useState('')
 
     const sendMessage = (e) => {
         e.preventDefault()
-        setMessages([...messages, {username: username, text: input}])
+
+        db.collection('messages').add({
+           message: input,
+           username: username,
+           sendAt: firebase.firestore.FieldValue.serverTimestamp()
+        })
+
+        setMessages([...messages, {username: username, message: input}])
         setInput('')
     }
 
     useEffect(() => {
         setUsername(prompt("Please enter your name"))
+    }, [])
+
+    useEffect(() => {
+        db.collection('messages')
+            .orderBy('timestamp','desc')
+            .onSnapshot(snapshot => {
+            setMessages(snapshot.docs.map(doc => doc.data()))
+        })
     }, [])
     
 

@@ -17,7 +17,7 @@ function Message({message, username}) {
                         {message.username} :{message.text}
                     </Typography>
                 </CardContent>
-            </Card>
+            </Card> 
         </div>            
     )
 }

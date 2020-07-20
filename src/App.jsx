@@ -9,7 +9,7 @@ function App(){
 
     const sendMessage = (e) => {
         e.preventDefault()
-        setMessages([...messages, input])
+        setMessages([...messages, {username: username, text: input}])
         setInput('')
     }
 
@@ -32,7 +32,7 @@ function App(){
             
             {
                 messages.map(message => (
-                    <Message key={Math.random() * 10000000} {...message} />
+                    <Message key={Math.random() * 10000000} text={message.text} username={message.username} />
                 ))
             }
         </div>

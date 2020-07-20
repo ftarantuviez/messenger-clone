@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Message({text, username}) {
+function Message(props) {
     return (
         <div className="message-container">
-            {username}: <p>{text}</p>
+            {props.username}: <h2>{props.text}</h2>
         </div>
     )
 }
 
-export default Message
+export default Message;

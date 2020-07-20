@@ -4,6 +4,9 @@ import Message from './Message'
 import db from './firebase'
 import firebase from 'firebase'
 import FlipMove from 'react-flip-move'
+import './App.css'
+import {IconButton} from '@material-ui/core'
+import SendIcon from '@material-ui/icons'
 
 function App(){
     const [input, setInput] = useState('')
@@ -31,26 +34,33 @@ function App(){
         db.collection('messages')
             .orderBy('sendAt','desc')
             .onSnapshot(snapshot => {
-            setMessages(snapshot.docs.map(doc => doc.data()))
+            setMessages(snapshot.docs.map(doc => ({id: doc.id, message: doc.data()})))
         })
     }, [])
+
+    const handleEnterKey = e => {
+        if(e.codeKey === 13){
+            e.preventDefault()
+            sendMessage()
+        }
+    }
     
 
     return(
         <div className="app">
             <h1>This is a h1</h1>
             <h2>Welcome {username} </h2>
-            <form>
+            <form className="app__form">
                 <FormControl>
                     <InputLabel>Enter a message</InputLabel>
                     <Input onChange={event => setInput(event.target.value)} value={input}/>
-                    <Button disabled={!input} variant="contained" color="primary" onClick={sendMessage}>Send message</Button>
+                    <IconButton disabled={!input} variant="contained" color="primary" onClick={sendMessage}><SendIcon /></IconButton>
                 </FormControl>
             </form>
             <FlipMove>
                 {
-                    messages.map(message => (
-                        <Message key={Math.random() * 10000000} message={message} username={username} />
+                    messages.map(({message, id}) => (
+                        <Message key={id} message={message} username={username} />
                     ))
                 }
             </FlipMove>

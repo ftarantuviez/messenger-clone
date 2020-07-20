@@ -32,7 +32,7 @@ function App(){
             
             {
                 messages.map(message => (
-                    <Message key={Math.random() * 10000000} text={message.text} username={message.username} />
+                    <Message key={Math.random() * 10000000} message={message} username={username} />
                 ))
             }
         </div>

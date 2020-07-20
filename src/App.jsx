@@ -21,7 +21,7 @@ function App(){
                     onChange={event => setInput(event.target.value)}
                     value={input}
                 />
-                <Button variant="contained" color="primary" onClick={sendMessage}>Send message</Button>
+                <Button disabled={!input} variant="contained" color="primary" onClick={sendMessage}>Send message</Button>
 
             </form>
             {

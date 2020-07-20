@@ -3,6 +3,7 @@ import {Button, FormControl, InputLabel, Input } from '@material-ui/core'
 import Message from './Message'
 import db from './firebase'
 import firebase from 'firebase'
+import FlipMove from 'react-flip-move'
 
 function App(){
     const [input, setInput] = useState('')
@@ -11,7 +12,7 @@ function App(){
 
     const sendMessage = (e) => {
         e.preventDefault()
-
+        
         db.collection('messages').add({
            message: input,
            username: username,
@@ -28,7 +29,7 @@ function App(){
 
     useEffect(() => {
         db.collection('messages')
-            .orderBy('timestamp','desc')
+            .orderBy('sendAt','desc')
             .onSnapshot(snapshot => {
             setMessages(snapshot.docs.map(doc => doc.data()))
         })
@@ -46,12 +47,13 @@ function App(){
                     <Button disabled={!input} variant="contained" color="primary" onClick={sendMessage}>Send message</Button>
                 </FormControl>
             </form>
-            
-            {
-                messages.map(message => (
-                    <Message key={Math.random() * 10000000} message={message} username={username} />
-                ))
-            }
+            <FlipMove>
+                {
+                    messages.map(message => (
+                        <Message key={Math.random() * 10000000} message={message} username={username} />
+                    ))
+                }
+            </FlipMove>
         </div>
             
     )

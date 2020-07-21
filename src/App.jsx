@@ -6,7 +6,7 @@ import firebase from 'firebase'
 import FlipMove from 'react-flip-move'
 import './App.css'
 import {IconButton} from '@material-ui/core'
-import SendIcon from '@material-ui/icons'
+import SendIcon from '@material-ui/icons/Send'
 
 function App(){
     const [input, setInput] = useState('')
@@ -37,13 +37,6 @@ function App(){
             setMessages(snapshot.docs.map(doc => ({id: doc.id, message: doc.data()})))
         })
     }, [])
-
-    const handleEnterKey = e => {
-        if(e.codeKey === 13){
-            e.preventDefault()
-            sendMessage()
-        }
-    }
     
 
     return(
@@ -51,10 +44,10 @@ function App(){
             <h1>This is a h1</h1>
             <h2>Welcome {username} </h2>
             <form className="app__form">
-                <FormControl>
+                <FormControl className="app__formControl">
                     <InputLabel>Enter a message</InputLabel>
-                    <Input onChange={event => setInput(event.target.value)} value={input}/>
-                    <IconButton disabled={!input} variant="contained" color="primary" onClick={sendMessage}><SendIcon /></IconButton>
+                    <Input className="app__input" onChange={event => setInput(event.target.value)} value={input}/>
+                    <IconButton className="app__iconButton" disabled={!input} type="submit" variant="contained" color="primary" onClick={sendMessage}><SendIcon /></IconButton>
                 </FormControl>
             </form>
             <FlipMove>

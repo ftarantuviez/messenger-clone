@@ -25,3 +25,7 @@
 .app__iconButton{
     flex: 0 !important;
 }
+
+header img{
+    max-width: 100px;
+}

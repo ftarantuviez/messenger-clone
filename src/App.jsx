@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Button, FormControl, InputLabel, Input } from '@material-ui/core'
+import {FormControl, InputLabel, Input } from '@material-ui/core'
 import Message from './Message'
 import db from './firebase'
 import firebase from 'firebase'
@@ -41,8 +41,11 @@ function App(){
 
     return(
         <div className="app">
-            <h1>This is a h1</h1>
-            <h2>Welcome {username} </h2>
+            <header>
+                <img src="https://seeklogo.com/images/F/facebook-messenger-logo-36376366E2-seeklogo.com.png" alt="" srcset=""/>
+                <h1>Messenger</h1>
+                <h2>Welcome {username} </h2>
+            </header>
             <form className="app__form">
                 <FormControl className="app__formControl">
                     <InputLabel>Enter a message</InputLabel>
